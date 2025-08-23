@@ -1,9 +1,15 @@
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import { useState } from 'react';
 import { ChevronRight } from 'lucide-react';
 
 const AuthScreen = () => {
     const [email, setEmail] = useState('');
+    const navigate = useNavigate();
+
+    const handleFormSubmit = (e) => {
+        e.preventDefault();
+        navigate("/signup?email=" + email)
+    }
 
   return(
 
@@ -23,7 +29,7 @@ const AuthScreen = () => {
         <p className="text-lg mb-4">Watch anywhere. Cancel anytime.</p>
         <p className="mb-4">Ready to watch? Enter your email to create or restart your membership</p>
 
-        <form className='flex flex-col md:flex-row gap-4 w-1/2'>
+        <form className='flex flex-col md:flex-row gap-4 w-1/2' onSubmit = {handleFormSubmit}>
         <input
             type="email"
             placeholder='Email address'
@@ -58,7 +64,7 @@ const AuthScreen = () => {
         <div className='flex-1 relative'>
             <img src="/tv.png" alt="Tv image" className="mt-4 z-20 relative"/>
             <video className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1/2 z-10'
-            playsInLine
+            playsInline
             autoPlay={true}
             muted
             loop
@@ -89,7 +95,7 @@ const AuthScreen = () => {
                     <div className='flex justify-between items-center w-full'>
                         <div className='flex flex-col gap-0'>
                             <span className="text-md lg:text-lg font-bold">Stranger Things</span>
-                            <span classname='text-sm text-blue-500'>Downloading....</span>
+                            <span className='text-sm text-blue-500'>Downloading....</span>
                         </div>
 
                         <img src="/download-icon.gif" alt="" className='h-12'/>
@@ -132,7 +138,7 @@ const AuthScreen = () => {
         <div className='flex-1 relative overflow-hidden'>
             <img src="/device-pile.png" alt="Device image" className="mt-4 z-20 relative"/>
             <video className='absolute top-2 left-1/2 -translate-x-1/2 h-4/6 z-10 max-w-[63%] '
-            playsInLine
+            playsInline
             autoPlay={true}
             muted
             loop
