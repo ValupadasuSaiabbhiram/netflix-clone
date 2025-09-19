@@ -1,5 +1,5 @@
 import { User } from '../models/user.model.js';
-import bcrypt from 'bcryptjs';
+import bcryptjs from 'bcryptjs';
 import { generateTokenAndSetCookie } from '../utils/generateToken.js';
 
 export async function signup(req, res) {
@@ -75,13 +75,14 @@ export async function login(req, res) {
         const{email, password} = req.body;
 
         if(!email || !password){
-            return res.status(400).json({success:false, message:"Please fill all the fields"});
-        }   
-        const user = await User.findone({email:email});
+            return res.status(400).json({success:false, message:"All fields are required"});
+        } 
+
+        const user = await User.findOne({email:email});
             if (!user) {
                 return res.status(400).json({success:false, message:"Invalid credentials"});
             }   
-        const isPasswordCorrect = await bcrypt.compare(password, user.password);
+        const isPasswordCorrect = await bcryptjs.compare(password, user.password);
         if (!isPasswordCorrect) {
             return res.status(400).json({success:false, message:"Invalid credentials"});
         }
